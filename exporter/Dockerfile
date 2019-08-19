@@ -1,0 +1,54 @@
+FROM gcr.io/google-appengine/debian9:latest as builder
+
+ENV GOPATH /usr/local
+
+ENV EXPORTER_VERSION 0.4.0
+ENV EXPORTER_SHA256 ff77c03de67cf381f67480b5be6699901785a34145c518c3484ae3e5b8440d08
+
+ENV NOTICES_SHA256 d86970abbd642018c118153809397ba03a0e964a34141487afd57173352a5242
+
+# Installs packages
+RUN set -eux \
+    && apt-get update \
+    && apt-get install -y \
+        curl \
+        golang \
+        govendor \
+        tar
+
+RUN set -eux \
+    # Downloads binary
+    && curl -L -O "https://github.com/prometheus/consul_exporter/releases/download/v${EXPORTER_VERSION}/consul_exporter-${EXPORTER_VERSION}.linux-amd64.tar.gz" \
+    # Verifies checksum
+    && echo "${EXPORTER_SHA256} consul_exporter-${EXPORTER_VERSION}.linux-amd64.tar.gz" | sha256sum -c \
+    # Untar binary
+    && tar -xzf "consul_exporter-${EXPORTER_VERSION}.linux-amd64.tar.gz" --strip-components=1 \
+    && rm "consul_exporter-${EXPORTER_VERSION}.linux-amd64.tar.gz" \
+    && rm NOTICE
+
+RUN set -eux \
+    # Downloads source code
+    && curl -L -o /tmp/consul_exporter.tar.gz "https://github.com/prometheus/consul_exporter/archive/v${EXPORTER_VERSION}.tar.gz" \
+    && mkdir -p "${GOPATH}/src/github.com/prometheus/consul_exporter" \
+    && tar -xzf /tmp/consul_exporter.tar.gz --strip-components=1 -C "${GOPATH}/src/github.com/prometheus/consul_exporter"
+
+RUN set -eux \
+    # Extracts licences
+    && cd "${GOPATH}/src/github.com/prometheus/consul_exporter" \
+    && govendor license +vendor > /NOTICES \
+    # Verifies checksum. Changing the checksum means changing the licenses.
+    && echo "${NOTICES_SHA256} /NOTICES" | sha256sum -c \
+    && cp -R "${GOPATH}/src/github.com/prometheus/consul_exporter" /tmp/
+
+
+FROM scratch
+# The scratch image is the most minimal image in Docker. It doesn't contain any folders/files.
+# Builded container will be contain only files copied downstair.
+
+COPY --from=builder /consul_exporter /bin/consul_exporter
+COPY --from=builder /LICENSE /usr/share/consul_exporter/LICENSE
+COPY --from=builder /NOTICES /usr/share/consul_exporter/NOTICES
+COPY --from=builder /tmp/consul_exporter /usr/local/src/consul_exporter
+
+EXPOSE 9107
+ENTRYPOINT ["/bin/consul_exporter"]
