@@ -91,7 +91,7 @@ RUN mkdir -p /tmp/build && \
     rm -rf /tmp/build && \
 # tiny smoke test to ensure the binary we downloaded runs right version
     test ${C2D_RELEASE} = $(consul version | awk '/Consul/ { print $2 }' | grep -o -E '([0-9]+\.)([0-9]+\.)([0-9]+)'$) \
-         || echo "Version check failed"
+         || { echo "Version check failed"; exit 1; }
 
 # The /consul/data dir is used by Consul to store state. The agent will be started
 # with /consul/config as the configuration directory so you can add additional
