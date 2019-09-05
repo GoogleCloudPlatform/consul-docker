@@ -37,15 +37,15 @@ versions:
   - dir: '1/1.4'
     repo: consul1
     tags:
-      - '1.4.4-debian9'
+      - '1.4.5-debian9'
       - '1.4-debian9'
-      - '1.4.4'
+      - '1.4.5'
       - '1.4'
     from: *from9
     packages:
       gosu: *gosu
       consul:
-        version: '1.4.4'
+        version: '1.4.5'
         gpg: 'd3bdf9817c7de9d83426d8c421eb3f37bf82c03c97860ef78fb56e148c4a9765'
   - dir: 'exporter'
     repo: 'consul1'
