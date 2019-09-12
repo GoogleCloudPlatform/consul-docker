@@ -3,6 +3,8 @@ FROM gcr.io/google-appengine/debian9:latest
 # This is the release of Consul to pull in.
 ENV CONSUL_VERSION=1.4.5
 
+ENV C2D_RELEASE=${CONSUL_VERSION}
+
 # This is the location of the releases.
 ENV HASHICORP_RELEASES=https://releases.hashicorp.com
 
@@ -87,8 +89,9 @@ RUN mkdir -p /tmp/build && \
     unzip -d /bin consul_${CONSUL_VERSION}_linux_amd64.zip && \
     cd /tmp && \
     rm -rf /tmp/build && \
-# tiny smoke test to ensure the binary we downloaded runs
-    consul version
+# tiny smoke test to ensure the binary we downloaded runs right version
+    test ${C2D_RELEASE} = $(consul version | awk '/Consul/ { print $2 }' | grep -o -E '([0-9]+\.)([0-9]+\.)([0-9]+)'$) \
+         || { echo "Version check failed"; exit 1; }
 
 # The /consul/data dir is used by Consul to store state. The agent will be started
 # with /consul/config as the configuration directory so you can add additional
