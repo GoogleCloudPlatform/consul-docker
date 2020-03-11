@@ -19,20 +19,20 @@ _variables:
     gpg: B42F6819007F00F88E364FD4036A9C25BF357DD4
 
 versions:
-  - dir: '1/1.6'
+  - dir: '1/1.7'
     repo: consul1
     tags:
-      - '1.6.2-debian9'
-      - '1.6-debian9'
-      - '1.6.2'
-      - '1.6'
+      - '1.7.1-debian9'
+      - '1.7-debian9'
+      - '1.7.1'
+      - '1.7'
       - '1'
       - 'latest'
     from: *from9
     packages:
       gosu: *gosu
       consul:
-        version: '1.6.2'
+        version: '1.7.1'
         gpg: 'd3bdf9817c7de9d83426d8c421eb3f37bf82c03c97860ef78fb56e148c4a9765'
   - dir: '1/1.4'
     repo: consul1
