@@ -6,7 +6,7 @@ FROM {{ .From }}
 # This is the release of Consul to pull in.
 ENV CONSUL_VERSION={{ $consul.Version }}
 
-ENV C2D_RELEASE=${CONSUL_VERSION}
+ENV C2D_RELEASE={{ $consul.Version }}
 
 # This is the location of the releases.
 ENV HASHICORP_RELEASES=https://releases.hashicorp.com
