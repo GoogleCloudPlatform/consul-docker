@@ -1,4 +1,4 @@
-FROM gcr.io/google-appengine/debian9:latest as builder
+FROM gcr.io/google-appengine/debian9 as builder
 
 ENV GOPATH /usr/local
 
@@ -41,7 +41,7 @@ RUN set -eux \
     && cp -R "${GOPATH}/src/github.com/prometheus/consul_exporter" /tmp/
 
 
-FROM gcr.io/google-appengine/debian9:latest
+FROM gcr.io/google-appengine/debian9
 # The scratch image is the most minimal image in Docker. It doesn't contain any folders/files.
 # Builded container will be contain only files copied downstair.
 
