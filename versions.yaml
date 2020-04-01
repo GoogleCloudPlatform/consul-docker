@@ -21,16 +21,16 @@ versions:
   packages:
     consul:
       gpg: d3bdf9817c7de9d83426d8c421eb3f37bf82c03c97860ef78fb56e148c4a9765
-      version: 1.7.1
+      version: 1.7.2
     gosu:
       gpg: B42F6819007F00F88E364FD4036A9C25BF357DD4
       version: '1.11'
   repo: consul1
   tags:
-  - 1.7.1-debian9
+  - 1.7.2-debian9
   - 1.7-debian9
   - 1-debian9
-  - 1.7.1
+  - 1.7.2
   - '1.7'
   - '1'
   - latest
