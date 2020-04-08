@@ -20,7 +20,6 @@ versions:
   from: gcr.io/google-appengine/debian9
   packages:
     consul:
-      gpg: d3bdf9817c7de9d83426d8c421eb3f37bf82c03c97860ef78fb56e148c4a9765
       version: 1.7.2
     gosu:
       gpg: B42F6819007F00F88E364FD4036A9C25BF357DD4
@@ -38,7 +37,6 @@ versions:
   from: gcr.io/google-appengine/debian9
   packages:
     consul:
-      gpg: d3bdf9817c7de9d83426d8c421eb3f37bf82c03c97860ef78fb56e148c4a9765
       version: 1.4.5
     gosu:
       gpg: B42F6819007F00F88E364FD4036A9C25BF357DD4
