@@ -1,9 +1,9 @@
 FROM gcr.io/google-appengine/debian9
 
 # This is the release of Consul to pull in.
-ENV CONSUL_VERSION=1.7.2
+ENV CONSUL_VERSION=1.7.3
 
-ENV C2D_RELEASE=1.7.2
+ENV C2D_RELEASE=1.7.3
 
 # This is the location of the releases.
 ENV HASHICORP_RELEASES=https://releases.hashicorp.com
