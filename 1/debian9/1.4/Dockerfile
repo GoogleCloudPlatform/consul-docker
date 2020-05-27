@@ -1,4 +1,4 @@
-FROM gcr.io/google-appengine/debian9
+FROM marketplace.gcr.io/google/debian9
 
 # This is the release of Consul to pull in.
 ENV CONSUL_VERSION=1.4.5

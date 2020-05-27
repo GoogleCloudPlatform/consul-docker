@@ -17,7 +17,7 @@ cloudbuild:
   enable_parallel: false
 versions:
 - dir: 1/debian9/1.7
-  from: gcr.io/google-appengine/debian9
+  from: marketplace.gcr.io/google/debian9
   packages:
     consul:
       version: 1.7.3
@@ -34,7 +34,7 @@ versions:
   - '1'
   - latest
 - dir: 1/debian9/1.4
-  from: gcr.io/google-appengine/debian9
+  from: marketplace.gcr.io/google/debian9
   packages:
     consul:
       version: 1.4.5
@@ -48,7 +48,7 @@ versions:
   - 1.4.5
   - '1.4'
 - dir: exporter
-  from: gcr.io/google-appengine/debian9
+  from: marketplace.gcr.io/google/debian9
   packages:
     consul_exporter:
       sha256: ff77c03de67cf381f67480b5be6699901785a34145c518c3484ae3e5b8440d08
