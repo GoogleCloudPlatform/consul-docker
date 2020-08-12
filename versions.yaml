@@ -20,33 +20,19 @@ versions:
   from: marketplace.gcr.io/google/debian9
   packages:
     consul:
-      version: 1.8.1
+      version: 1.8.2
     gosu:
       gpg: B42F6819007F00F88E364FD4036A9C25BF357DD4
       version: '1.11'
   repo: consul1
   tags:
-  - 1.8.1-debian9
+  - 1.8.2-debian9
   - 1.8-debian9
   - 1-debian9
-  - 1.8.1
+  - 1.8.2
   - '1.8'
   - '1'
   - latest
-- dir: 1/debian9/1.4
-  from: marketplace.gcr.io/google/debian9
-  packages:
-    consul:
-      version: 1.4.5
-    gosu:
-      gpg: B42F6819007F00F88E364FD4036A9C25BF357DD4
-      version: '1.11'
-  repo: consul1
-  tags:
-  - 1.4.5-debian9
-  - 1.4-debian9
-  - 1.4.5
-  - '1.4'
 - dir: exporter
   from: marketplace.gcr.io/google/debian9
   packages:
