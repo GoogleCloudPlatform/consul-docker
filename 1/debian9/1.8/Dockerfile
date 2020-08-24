@@ -2,7 +2,6 @@ FROM marketplace.gcr.io/google/debian9
 
 # This is the release of Consul to pull in.
 ENV CONSUL_VERSION=1.8.3
-
 ENV C2D_RELEASE=1.8.3
 
 # This is the location of the releases.
