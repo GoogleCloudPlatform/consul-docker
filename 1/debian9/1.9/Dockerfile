@@ -1,36 +1,37 @@
 FROM marketplace.gcr.io/google/debian9
 
 # This is the release of Consul to pull in.
-ENV CONSUL_VERSION=1.9.4
+ENV CONSUL_VERSION 1.9.5
+ENV CONSUL_GPG C874011F0AB405110D02105534365D9472D7468F 91A6E7F85D05C65630BEF18951852D87348FFC4C
 
-ENV C2D_RELEASE=1.9.4
+ENV C2D_RELEASE 1.9.5
 
 # This is the location of the releases.
-ENV HASHICORP_RELEASES=https://releases.hashicorp.com
+ENV HASHICORP_RELEASES https://releases.hashicorp.com
 
 # Create a consul user and group first so the IDs get set the same way, even as
 # the rest of this may change over time.
 RUN groupadd -r consul && useradd -r -g consul consul
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-	ca-certificates \
-	wget \
-	gnupg \
-	dirmngr \
-	&& rm -rf /var/lib/apt/lists/*
+    ca-certificates \
+    wget \
+    gnupg \
+    dirmngr \
+    && rm -rf /var/lib/apt/lists/*
 
 # add gosu for easy step-down from root
 ENV GOSU_VERSION 1.11
 ENV GOSU_GPG B42F6819007F00F88E364FD4036A9C25BF357DD4
 
 RUN set -x \
-	&& wget -q -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
-	&& wget -q -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
-	# copy source code
-	&& wget -q -O /usr/local/src/gosu.tar.gz "https://github.com/tianon/gosu/archive/$GOSU_VERSION.tar.gz" \
-	# extract gosu binary and check signature
-	&& export GNUPGHOME="$(mktemp -d)" \
-	&& found='' && \
+    && wget -q -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
+    && wget -q -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
+    # copy source code
+    && wget -q -O /usr/local/src/gosu.tar.gz "https://github.com/tianon/gosu/archive/$GOSU_VERSION.tar.gz" \
+    # extract gosu binary and check signature
+    && export GNUPGHOME="$(mktemp -d)" \
+    && found='' && \
 	for server in \
 		pool.sks-keyservers.net \
 		na.pool.sks-keyservers.net \
@@ -45,10 +46,10 @@ RUN set -x \
 			&& found=yes && break; \
 	done; \
 	test -n "$found" \
-	&& gpg --no-tty --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
-	&& rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc \
-	&& chmod +x /usr/local/bin/gosu \
-	&& gosu nobody true
+    && gpg --no-tty --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
+    && rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc \
+    && chmod +x /usr/local/bin/gosu \
+    && gosu nobody true
 
 # Set up certificates, base tools, and Consul.
 RUN set -eux && \
@@ -62,8 +63,7 @@ RUN set -eux && \
       jq \
     ' && \
     apt-get update && apt-get install -qq -y $buildDependencies \
-	&& key=91A6E7F85D05C65630BEF18951852D87348FFC4C \
-	&& found='' && \
+    && found='' && \
 	for server in \
 		pool.sks-keyservers.net \
 		na.pool.sks-keyservers.net \
@@ -74,7 +74,7 @@ RUN set -eux && \
 		hkp://keyserver.ubuntu.com:80 \
 		pgp.mit.edu \
 	; do \
-		gpg --keyserver $server --recv-keys $key \
+		gpg --keyserver $server --recv-keys $CONSUL_GPG \
 			&& found=yes && break; \
 	done; \
 	test -n "$found"
@@ -89,7 +89,7 @@ RUN mkdir -p /tmp/build && \
     unzip -d /bin consul_${CONSUL_VERSION}_linux_amd64.zip && \
     cd /tmp && \
     rm -rf /tmp/build && \
-# tiny smoke test to ensure the binary we downloaded runs right version
+    # tiny smoke test to ensure the binary we downloaded runs right version
     test ${C2D_RELEASE} = $(consul version | awk '/Consul/ { print $2 }' | grep -o -E '([0-9]+\.)([0-9]+\.)([0-9]+)'$) \
          || { echo "Version check failed"; exit 1; }
 
