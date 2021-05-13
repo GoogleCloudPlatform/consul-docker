@@ -17,28 +17,28 @@ ENV HASHICORP_RELEASES https://releases.hashicorp.com
 RUN groupadd -r consul && useradd -r -g consul consul
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-	ca-certificates \
-	wget \
-	gnupg \
-	dirmngr \
-	&& rm -rf /var/lib/apt/lists/*
+    ca-certificates \
+    wget \
+    gnupg \
+    dirmngr \
+    && rm -rf /var/lib/apt/lists/*
 
 # add gosu for easy step-down from root
 ENV GOSU_VERSION {{ $gosu.Version }}
 ENV GOSU_GPG {{ $gosu.Gpg }}
 
 RUN set -x \
-	&& wget -q -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
-	&& wget -q -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
-	# copy source code
-	&& wget -q -O /usr/local/src/gosu.tar.gz "https://github.com/tianon/gosu/archive/$GOSU_VERSION.tar.gz" \
-	# extract gosu binary and check signature
-	&& export GNUPGHOME="$(mktemp -d)" \
-	&& {{ `gpg --keyserver $server --recv-keys $GOSU_GPG` | KeyServersRetryLoop "\t" }} \
-	&& gpg --no-tty --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
-	&& rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc \
-	&& chmod +x /usr/local/bin/gosu \
-	&& gosu nobody true
+    && wget -q -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
+    && wget -q -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
+    # copy source code
+    && wget -q -O /usr/local/src/gosu.tar.gz "https://github.com/tianon/gosu/archive/$GOSU_VERSION.tar.gz" \
+    # extract gosu binary and check signature
+    && export GNUPGHOME="$(mktemp -d)" \
+    && {{ `gpg --keyserver $server --recv-keys $GOSU_GPG` | KeyServersRetryLoop "\t" }} \
+    && gpg --no-tty --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
+    && rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc \
+    && chmod +x /usr/local/bin/gosu \
+    && gosu nobody true
 
 # Set up certificates, base tools, and Consul.
 RUN set -eux && \
@@ -52,7 +52,7 @@ RUN set -eux && \
       jq \
     ' && \
     apt-get update && apt-get install -qq -y $buildDependencies \
-	&& {{ `gpg --keyserver $server --recv-keys $CONSUL_GPG` | KeyServersRetryLoop "\t" }}
+    && {{ `gpg --keyserver $server --recv-keys $GOSU_GPG` | KeyServersRetryLoop "\t" }}
 
 RUN mkdir -p /tmp/build && \
     cd /tmp/build && \
@@ -64,7 +64,7 @@ RUN mkdir -p /tmp/build && \
     unzip -d /bin consul_${CONSUL_VERSION}_linux_amd64.zip && \
     cd /tmp && \
     rm -rf /tmp/build && \
-# tiny smoke test to ensure the binary we downloaded runs right version
+    # tiny smoke test to ensure the binary we downloaded runs right version
     test ${C2D_RELEASE} = $(consul version | awk '/Consul/ { print $2 }' | grep -o -E '([0-9]+\.)([0-9]+\.)([0-9]+)'$) \
          || { echo "Version check failed"; exit 1; }
 
