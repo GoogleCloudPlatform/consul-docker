@@ -52,7 +52,7 @@ RUN set -eux && \
       jq \
     ' && \
     apt-get update && apt-get install -qq -y $buildDependencies \
-    && {{ `gpg --keyserver $server --recv-keys $GOSU_GPG` | KeyServersRetryLoop "\t" }}
+    && {{ `gpg --keyserver $server --recv-keys $CONSUL_GPG` | KeyServersRetryLoop "\t" }}
 
 RUN mkdir -p /tmp/build && \
     cd /tmp/build && \

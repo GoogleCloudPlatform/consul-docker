@@ -74,7 +74,7 @@ RUN set -eux && \
 		hkp://keyserver.ubuntu.com:80 \
 		pgp.mit.edu \
 	; do \
-		gpg --keyserver $server --recv-keys $GOSU_GPG \
+		gpg --keyserver $server --recv-keys $CONSUL_GPG \
 			&& found=yes && break; \
 	done; \
 	test -n "$found"
