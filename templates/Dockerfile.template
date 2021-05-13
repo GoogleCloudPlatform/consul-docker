@@ -4,12 +4,13 @@ FROM {{ .From }}
 {{- $consul := index .Packages "consul" }}
 
 # This is the release of Consul to pull in.
-ENV CONSUL_VERSION={{ $consul.Version }}
+ENV CONSUL_VERSION {{ $consul.Version }}
+ENV CONSUL_GPG {{ $consul.Gpg }}
 
-ENV C2D_RELEASE={{ $consul.Version }}
+ENV C2D_RELEASE {{ $consul.Version }}
 
 # This is the location of the releases.
-ENV HASHICORP_RELEASES=https://releases.hashicorp.com
+ENV HASHICORP_RELEASES https://releases.hashicorp.com
 
 # Create a consul user and group first so the IDs get set the same way, even as
 # the rest of this may change over time.
@@ -51,22 +52,7 @@ RUN set -eux && \
       jq \
     ' && \
     apt-get update && apt-get install -qq -y $buildDependencies \
-	&& key=91A6E7F85D05C65630BEF18951852D87348FFC4C \
-	&& found='' && \
-	for server in \
-		pool.sks-keyservers.net \
-		na.pool.sks-keyservers.net \
-		eu.pool.sks-keyservers.net \
-		oc.pool.sks-keyservers.net \
-		ha.pool.sks-keyservers.net \
-		hkp://p80.pool.sks-keyservers.net:80 \
-		hkp://keyserver.ubuntu.com:80 \
-		pgp.mit.edu \
-	; do \
-		gpg --keyserver $server --recv-keys $key \
-			&& found=yes && break; \
-	done; \
-	test -n "$found"
+	&& {{ `gpg --keyserver $server --recv-keys $CONSUL_GPG` | KeyServersRetryLoop "\t" }}
 
 RUN mkdir -p /tmp/build && \
     cd /tmp/build && \

@@ -1,12 +1,13 @@
 FROM marketplace.gcr.io/google/debian9
 
 # This is the release of Consul to pull in.
-ENV CONSUL_VERSION=1.9.5
+ENV CONSUL_VERSION 1.9.5
+ENV CONSUL_GPG C874011F0AB405110D02105534365D9472D7468F 91A6E7F85D05C65630BEF18951852D87348FFC4C
 
-ENV C2D_RELEASE=1.9.5
+ENV C2D_RELEASE 1.9.5
 
 # This is the location of the releases.
-ENV HASHICORP_RELEASES=https://releases.hashicorp.com
+ENV HASHICORP_RELEASES https://releases.hashicorp.com
 
 # Create a consul user and group first so the IDs get set the same way, even as
 # the rest of this may change over time.
@@ -62,7 +63,6 @@ RUN set -eux && \
       jq \
     ' && \
     apt-get update && apt-get install -qq -y $buildDependencies \
-	&& key=91A6E7F85D05C65630BEF18951852D87348FFC4C \
 	&& found='' && \
 	for server in \
 		pool.sks-keyservers.net \
@@ -74,7 +74,7 @@ RUN set -eux && \
 		hkp://keyserver.ubuntu.com:80 \
 		pgp.mit.edu \
 	; do \
-		gpg --keyserver $server --recv-keys $key \
+		gpg --keyserver $server --recv-keys $CONSUL_GPG \
 			&& found=yes && break; \
 	done; \
 	test -n "$found"
