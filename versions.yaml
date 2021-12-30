@@ -16,24 +16,39 @@
 cloudbuild:
   enable_parallel: false
 versions:
-- dir: 1/debian9/1.10
+- dir: 1/debian9/1.11
   from: marketplace.gcr.io/google/debian9
   packages:
     consul:
       gpg: C874011F0AB405110D02105534365D9472D7468F 91A6E7F85D05C65630BEF18951852D87348FFC4C
-      version: 1.10.3
+      version: 1.11.1
     gosu:
       gpg: B42F6819007F00F88E364FD4036A9C25BF357DD4
       version: '1.11'
   repo: consul1
   tags:
-  - 1.10.3-debian9
-  - 1.10-debian9
+  - 1.11.1-debian9
+  - 1.11-debian9
   - 1-debian9
-  - 1.10.3
-  - '1.10'
+  - 1.11.1
+  - '1.11'
   - '1'
   - latest
+- dir: 1/debian9/1.10
+  from: marketplace.gcr.io/google/debian9
+  packages:
+    consul:
+      gpg: C874011F0AB405110D02105534365D9472D7468F 91A6E7F85D05C65630BEF18951852D87348FFC4C
+      version: 1.10.6
+    gosu:
+      gpg: B42F6819007F00F88E364FD4036A9C25BF357DD4
+      version: '1.11'
+  repo: consul1
+  tags:
+  - 1.10.6-debian9
+  - 1.10-debian9
+  - 1.10.6
+  - '1.10'
 - dir: exporter
   from: marketplace.gcr.io/google/debian9
   packages:
