@@ -1,4 +1,4 @@
-# Copyright 2021 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,16 +21,16 @@ versions:
   packages:
     consul:
       gpg: C874011F0AB405110D02105534365D9472D7468F 91A6E7F85D05C65630BEF18951852D87348FFC4C
-      version: 1.11.1
+      version: 1.11.2
     gosu:
       gpg: B42F6819007F00F88E364FD4036A9C25BF357DD4
       version: '1.11'
   repo: consul1
   tags:
-  - 1.11.1-debian9
+  - 1.11.2-debian9
   - 1.11-debian9
   - 1-debian9
-  - 1.11.1
+  - 1.11.2
   - '1.11'
   - '1'
   - latest
@@ -39,15 +39,15 @@ versions:
   packages:
     consul:
       gpg: C874011F0AB405110D02105534365D9472D7468F 91A6E7F85D05C65630BEF18951852D87348FFC4C
-      version: 1.10.6
+      version: 1.10.7
     gosu:
       gpg: B42F6819007F00F88E364FD4036A9C25BF357DD4
       version: '1.11'
   repo: consul1
   tags:
-  - 1.10.6-debian9
+  - 1.10.7-debian9
   - 1.10-debian9
-  - 1.10.6
+  - 1.10.7
   - '1.10'
 - dir: exporter
   from: marketplace.gcr.io/google/debian9
