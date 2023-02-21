@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,41 +16,41 @@
 cloudbuild:
   enable_parallel: false
 versions:
-- dir: 1/debian9/1.13
-  from: marketplace.gcr.io/google/debian9
+- dir: 1/debian11/1.14
+  from: marketplace.gcr.io/google/c2d-debian11
   packages:
     consul:
       gpg: C874011F0AB405110D02105534365D9472D7468F 91A6E7F85D05C65630BEF18951852D87348FFC4C
-      version: 1.13.1
+      version: 1.14.4
     gosu:
       gpg: B42F6819007F00F88E364FD4036A9C25BF357DD4
       version: '1.11'
   repo: consul1
   tags:
-  - 1.13.1-debian9
-  - 1.13-debian9
-  - 1-debian9
-  - 1.13.1
-  - '1.13'
+  - 1.14.4-debian11
+  - 1.14-debian11
+  - 1-debian11
+  - 1.14.4
+  - '1.14'
   - '1'
   - latest
-- dir: 1/debian9/1.11
-  from: marketplace.gcr.io/google/debian9
+- dir: 1/debian11/1.11
+  from: marketplace.gcr.io/google/c2d-debian11
   packages:
     consul:
       gpg: C874011F0AB405110D02105534365D9472D7468F 91A6E7F85D05C65630BEF18951852D87348FFC4C
-      version: 1.11.8
+      version: 1.11.11
     gosu:
       gpg: B42F6819007F00F88E364FD4036A9C25BF357DD4
       version: '1.11'
   repo: consul1
   tags:
-  - 1.11.8-debian9
-  - 1.11-debian9
-  - 1.11.8
+  - 1.11.11-debian11
+  - 1.11-debian11
+  - 1.11.11
   - '1.11'
 - dir: exporter
-  from: marketplace.gcr.io/google/debian9
+  from: marketplace.gcr.io/google/c2d-debian11
   packages:
     consul_exporter:
       sha256: 92ffd37fb5f2350df21e7a688c28e7bb2882c309f613400eafdc411c818ec048
