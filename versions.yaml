@@ -16,22 +16,22 @@
 cloudbuild:
   enable_parallel: false
 versions:
-- dir: 1/debian11/1.16
+- dir: 1/debian11/1.17
   from: marketplace.gcr.io/google/c2d-debian11
   packages:
     consul:
       gpg: C874011F0AB405110D02105534365D9472D7468F 91A6E7F85D05C65630BEF18951852D87348FFC4C
-      version: 1.16.1
+      version: 1.17.1
     gosu:
       gpg: B42F6819007F00F88E364FD4036A9C25BF357DD4
       version: '1.11'
   repo: consul1
   tags:
-  - 1.16.1-debian11
-  - 1.16-debian11
+  - 1.17.1-debian11
+  - 1.17-debian11
   - 1-debian11
-  - 1.16.1
-  - '1.16'
+  - 1.17.1
+  - '1.17'
   - '1'
   - latest
 - dir: 1/debian11/1.15
@@ -39,15 +39,15 @@ versions:
   packages:
     consul:
       gpg: C874011F0AB405110D02105534365D9472D7468F 91A6E7F85D05C65630BEF18951852D87348FFC4C
-      version: 1.15.5
+      version: 1.15.8
     gosu:
       gpg: B42F6819007F00F88E364FD4036A9C25BF357DD4
       version: '1.11'
   repo: consul1
   tags:
-  - 1.15.5-debian11
+  - 1.15.8-debian11
   - 1.15-debian11
-  - 1.15.5
+  - 1.15.8
   - '1.15'
 - dir: exporter
   from: marketplace.gcr.io/google/c2d-debian11
