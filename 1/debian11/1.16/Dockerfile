@@ -14,7 +14,7 @@ ENV HASHICORP_RELEASES https://releases.hashicorp.com
 RUN groupadd -r consul && useradd -r -g consul consul
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ca-certificates \
+    update-ca-certificates \
     wget \
     gnupg \
     dirmngr \
