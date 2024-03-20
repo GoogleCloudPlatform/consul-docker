@@ -14,6 +14,7 @@ ENV NOTICES_SHA256 {{ $template.consul_exporter_notices_check_sum }}
 RUN set -eux \
     && apt-get update \
     && apt-get install -y \
+        ca-certificates \
         curl \
         golang \
         govendor \

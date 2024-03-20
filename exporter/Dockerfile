@@ -11,6 +11,7 @@ ENV NOTICES_SHA256 c6005288ed9acccd3b790e9d693ef009f36bbb1d8141ca4c75dd073564242
 RUN set -eux \
     && apt-get update \
     && apt-get install -y \
+        ca-certificates \
         curl \
         golang \
         govendor \
