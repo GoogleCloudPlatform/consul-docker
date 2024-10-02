@@ -16,8 +16,9 @@ RUN set -eux \
     && apt-get install -y \
         curl \
         golang \
-        govendor \
         tar
+
+RUN go install github.com/kardianos/govendor@latest
 
 RUN set -eux \
     # Downloads binary

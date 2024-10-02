@@ -1,10 +1,10 @@
-FROM marketplace.gcr.io/google/c2d-debian11
+FROM marketplace.gcr.io/google/debian12
 
 # This is the release of Consul to pull in.
-ENV CONSUL_VERSION 1.15.5
+ENV CONSUL_VERSION 1.19.2
 ENV CONSUL_GPG C874011F0AB405110D02105534365D9472D7468F 91A6E7F85D05C65630BEF18951852D87348FFC4C
 
-ENV C2D_RELEASE 1.15.5
+ENV C2D_RELEASE 1.19.2
 
 # This is the location of the releases.
 ENV HASHICORP_RELEASES https://releases.hashicorp.com
@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # add gosu for easy step-down from root
-ENV GOSU_VERSION 1.11
+ENV GOSU_VERSION 1.17
 ENV GOSU_GPG B42F6819007F00F88E364FD4036A9C25BF357DD4
 
 RUN set -x \
