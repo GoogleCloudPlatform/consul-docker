@@ -1,11 +1,11 @@
-FROM marketplace.gcr.io/google/c2d-debian11 as builder
+FROM marketplace.gcr.io/google/debian12 as builder
 
 ENV GOPATH /usr/local
 
-ENV EXPORTER_VERSION 0.7.1
-ENV EXPORTER_SHA256 92ffd37fb5f2350df21e7a688c28e7bb2882c309f613400eafdc411c818ec048
+ENV EXPORTER_VERSION 0.12.1
+ENV EXPORTER_SHA256 ea385176714dc6692c44ccedeb3c23f66d410a4820ae51179a62db9de56eb54d
 
-ENV NOTICES_SHA256 c6005288ed9acccd3b790e9d693ef009f36bbb1d8141ca4c75dd0735642421c1
+ENV NOTICES_SHA256 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
 
 # Installs packages
 RUN set -eux \
@@ -13,8 +13,9 @@ RUN set -eux \
     && apt-get install -y \
         curl \
         golang \
-        govendor \
         tar
+
+RUN go install github.com/kardianos/govendor@latest
 
 RUN set -eux \
     # Downloads binary
@@ -41,7 +42,7 @@ RUN set -eux \
     && cp -R "${GOPATH}/src/github.com/prometheus/consul_exporter" /tmp/
 
 
-FROM marketplace.gcr.io/google/c2d-debian11
+FROM marketplace.gcr.io/google/debian12
 # The scratch image is the most minimal image in Docker. It doesn't contain any folders/files.
 # Builded container will be contain only files copied downstair.
 

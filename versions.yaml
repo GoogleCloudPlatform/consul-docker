@@ -16,51 +16,51 @@
 cloudbuild:
   enable_parallel: false
 versions:
-- dir: 1/debian11/1.16
-  from: marketplace.gcr.io/google/c2d-debian11
+- dir: 1/debian12/1.19
+  from: marketplace.gcr.io/google/debian12
   packages:
     consul:
       gpg: C874011F0AB405110D02105534365D9472D7468F 91A6E7F85D05C65630BEF18951852D87348FFC4C
-      version: 1.16.1
+      version: 1.19.2
     gosu:
       gpg: B42F6819007F00F88E364FD4036A9C25BF357DD4
-      version: '1.11'
+      version: '1.17'
   repo: consul1
   tags:
-  - 1.16.1-debian11
-  - 1.16-debian11
-  - 1-debian11
-  - 1.16.1
-  - '1.16'
+  - 1.19.2-debian12
+  - 1.19-debian12
+  - 1-debian12
+  - 1.19.2
+  - '1.19'
   - '1'
   - latest
-- dir: 1/debian11/1.15
-  from: marketplace.gcr.io/google/c2d-debian11
+- dir: 1/debian12/1.15
+  from: marketplace.gcr.io/google/debian12
   packages:
     consul:
       gpg: C874011F0AB405110D02105534365D9472D7468F 91A6E7F85D05C65630BEF18951852D87348FFC4C
-      version: 1.15.5
+      version: 1.15.10
     gosu:
       gpg: B42F6819007F00F88E364FD4036A9C25BF357DD4
-      version: '1.11'
+      version: '1.17'
   repo: consul1
   tags:
-  - 1.15.5-debian11
-  - 1.15-debian11
-  - 1.15.5
+  - 1.15.10-debian12
+  - 1.15-debian12
+  - 1.15.10
   - '1.15'
 - dir: exporter
-  from: marketplace.gcr.io/google/c2d-debian11
+  from: marketplace.gcr.io/google/debian12
   packages:
     consul_exporter:
-      sha256: 92ffd37fb5f2350df21e7a688c28e7bb2882c309f613400eafdc411c818ec048
-      version: 0.7.1
+      sha256: ea385176714dc6692c44ccedeb3c23f66d410a4820ae51179a62db9de56eb54d
+      version: 0.12.1
   repo: consul1
   tags:
   - exporter
-  - exporter-0.7
-  - exporter-0.7.1
+  - exporter-0.12
+  - exporter-0.12.1
   templateArgs:
-    consul_exporter_notices_check_sum: c6005288ed9acccd3b790e9d693ef009f36bbb1d8141ca4c75dd0735642421c1
+    consul_exporter_notices_check_sum: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
   templateSubDir: exporter
 
