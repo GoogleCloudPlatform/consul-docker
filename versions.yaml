@@ -26,6 +26,9 @@ versions:
       gpg: B42F6819007F00F88E364FD4036A9C25BF357DD4
       version: '1.17'
   repo: consul1
+  annotations:
+  - key: com.googleapis.cloudmarketplace.product.service.name
+    value: services/d71a4687-04ab-4b11-bc63-2b2574d96f6a.cloudpartnerservices.goog
   tags:
   - 1.19.2-debian12
   - 1.19-debian12
@@ -41,6 +44,9 @@ versions:
       gpg: C874011F0AB405110D02105534365D9472D7468F 91A6E7F85D05C65630BEF18951852D87348FFC4C
       version: 1.15.10
     gosu:
+  annotations:
+  - key: com.googleapis.cloudmarketplace.product.service.name
+    value: services/d71a4687-04ab-4b11-bc63-2b2574d96f6a.cloudpartnerservices.goog
       gpg: B42F6819007F00F88E364FD4036A9C25BF357DD4
       version: '1.17'
   repo: consul1
@@ -50,6 +56,9 @@ versions:
   - 1.15.10
   - '1.15'
 - dir: exporter
+  annotations:
+  - key: com.googleapis.cloudmarketplace.product.service.name
+    value: services/d71a4687-04ab-4b11-bc63-2b2574d96f6a.cloudpartnerservices.goog
   from: marketplace.gcr.io/google/debian12
   packages:
     consul_exporter:
